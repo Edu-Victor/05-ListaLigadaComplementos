@@ -8,6 +8,7 @@ struct NO {
 };
 
 NO* primeiro = NULL;
+NO* ultimo = NULL;
 
 // headers
 void menu();
@@ -115,6 +116,8 @@ void inserirElemento()
 {
 	// aloca memoria dinamicamente para o novo elemento
 	NO* novo = (NO*)malloc(sizeof(NO));
+
+
 	if (novo == NULL)
 	{
 		return;
@@ -127,26 +130,80 @@ void inserirElemento()
 	if (primeiro == NULL)
 	{
 		primeiro = novo;
+		ultimo = novo;
 	}
 	else
 	{
-		// procura o final da lista
-		NO* aux = primeiro;
-		while (aux->prox != NULL) {
-			aux = aux->prox;
-		}
-		aux->prox = novo;
+		ultimo->prox = novo;
+		ultimo = novo;
 	}
 }
 
 void excluirElemento()
 {
+	if (primeiro == NULL) {
+		cout << "A lista esta vazia" << endl;
+	}
+	else {
+		int excluir;
+		cout << "Digite o elemento a ser buscado: ";
+		cin >> excluir;
+
+		NO* delElemento = posicaoElemento(excluir);
+
+		if (delElemento == NULL) {
+			cout << "O elemento nao esta na lista";
+		}
+		else {
+			if (delElemento == primeiro) {
+				primeiro = delElemento->prox;
+
+			}
+			else {
+				NO* aux = primeiro;
+				while (aux->prox != delElemento) {
+					aux = aux->prox;
+				}
+				aux->prox = delElemento->prox;
+			}
+			cout << "O elemento foi excluido" << endl;
+		}
+		free(delElemento);
+
+		
+	}
 
 }
 
 void buscarElemento()
 {
+	if (primeiro == NULL) {
+		cout << "A lista esta vazia" << endl;
+	}
+	else {
+		int buscar;
+		cout << "Digite o elemento a ser buscado: ";
+		cin >> buscar;
+		NO* localizar = posicaoElemento(buscar);
 
+		if (localizar == NULL) {
+			cout << "O elemento nao esta na lista" << endl;
+		}
+		else {
+			cout << "O elemento " << localizar->valor << " esta na lista na posicao " << localizar << endl;
+		}
+	}
 }
 
-
+NO* posicaoElemento(int numero)
+{
+	NO* aux = primeiro;
+	while (aux != NULL) {
+		if (aux->valor == numero)
+		{
+			break;
+		}
+		aux = aux->prox;
+	}
+	return aux;
+}
