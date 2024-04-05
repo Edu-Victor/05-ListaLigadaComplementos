@@ -120,6 +120,7 @@ void inserirElemento()
 
 	if (novo == NULL)
 	{
+		cout << "Houve um erro na alocacao de memoria do elemento";
 		return;
 	}
 
@@ -127,16 +128,26 @@ void inserirElemento()
 	cin >> novo->valor;
 	novo->prox = NULL;
 
-	if (primeiro == NULL)
-	{
-		primeiro = novo;
-		ultimo = novo;
+	NO* posicao = posicaoElemento(novo->valor);
+
+	if (posicao == NULL) {
+		if (primeiro == NULL)
+		{
+			primeiro = novo;
+			ultimo = novo;
+		}
+		else
+		{
+			ultimo->prox = novo;
+			ultimo = novo;
+		}
+		cout << "Elemento " << novo->valor << " adicionada a lista" << endl;
 	}
-	else
-	{
-		ultimo->prox = novo;
-		ultimo = novo;
+	else {
+		cout << "Esse elemento ja esta na lista." << endl;
 	}
+
+	
 }
 
 void excluirElemento()
