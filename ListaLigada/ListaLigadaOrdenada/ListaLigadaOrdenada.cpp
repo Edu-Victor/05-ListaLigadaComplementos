@@ -131,7 +131,7 @@ void inserirElemento()
 
 	if (posicao == NULL) {
 
-		while (atual != NULL && atual->valor < novo->valor) {/*verifica a ordem do numero inserido e insere ordenadamente na lista*/
+		while (atual != NULL && atual->valor < novo->valor) {
 			anterior = atual;
 			atual = atual->prox;
 		}
